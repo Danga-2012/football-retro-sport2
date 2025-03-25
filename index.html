@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fútbol Retro Sport</title>
+    <style>
+        /* Estilos Generales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('fondo-futbol.jpg'); /* Imagen de fondo */
+            background-size: cover;
+            background-attachment: fixed;
+            text-align: center;
+            color: white;
+        }
+        header {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            font-size: 24px;
+        }
+        .catalogo {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+        .producto {
+            background: rgba(255, 255, 255, 0.9);
+            width: 280px;
+            margin: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            color: black;
+        }
+        .producto img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        h3 {
+            margin: 10px 0;
+            font-size: 1.3em;
+        }
+        .descripcion {
+            font-size: 1em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .precio {
+            font-size: 1.5em;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .btn-comprar {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            cursor: pointer;
+            font-size: 1em;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+        .btn-comprar:hover {
+            background-color: #219150;
+        }
+        
+        /* Carrito de Compras */
+        .carrito {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            margin: 20px auto;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            color: black;
+        }
+        .carrito h2 {
+            color: #2c3e50;
+        }
+        .lista-carrito {
+            text-align: left;
+            margin: 10px 0;
+        }
+        .total {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-top: 10px;
+        }
+        .btn-vaciar {
+            background-color: #c0392b;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            cursor: pointer;
+            font-size: 1em;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+        .btn-vaciar:hover {
+            background-color: #a83224;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>⚽ Fútbol Retro Sport ⚽</h1>
+</header>
+
+<div class="catalogo">
+    <div class="producto">
+        <h3>Camiseta Clásica 90s</h3>
+        <img src="camiseta1.jpg" alt="Camiseta Retro 1">
+        <p class="descripcion">Edición especial de los años 90.</p>
+        <p class="precio">$30.00</p>
+        <button class="btn-comprar" onclick="agregarAlCarrito('Camiseta Clásica 90s', 30)">Agregar al Carrito</button>
+    </div>
+    <div class="producto">
+        <h3>Camiseta Mundial 2002</h3>
+        <img src="camiseta2.jpg" alt="Camiseta Retro 2">
+        <p class="descripcion">Réplica de la mítica camiseta del 2002.</p>
+        <p class="precio">$35.00</p>
+        <button class="btn-comprar" onclick="agregarAlCarrito('Camiseta Mundial 2002', 35)">Agregar al Carrito</button>
+    </div>
+</div>
+
+<div class="carrito">
+    <h2>🛒 Carrito de Compras</h2>
+    <div class="lista-carrito">
+        <p>No hay productos en el carrito.</p>
+    </div>
+    <p class="total">Total: $0.00</p>
+    <button class="btn-vaciar" onclick="vaciarCarrito()">Vaciar Carrito</button>
+</div>
+
+<script>
+    let carrito = [];
+
+    function actualizarCarrito() {
+        const listaCarrito = document.querySelector('.lista-carrito');
+        const totalElemento = document.querySelector('.total');
+
+        if (carrito.length === 0) {
+            listaCarrito.innerHTML = '<p>No hay productos en el carrito.</p>';
+            totalElemento.textContent = 'Total: $0.00';
+            return;
+        }
+
+        listaCarrito.innerHTML = '';
+        let total = 0;
+
+        carrito.forEach((producto, index) => {
+            const item = document.createElement('p');
+            item.textContent = `${producto.nombre} - $${producto.precio.toFixed(2)}`;
+            listaCarrito.appendChild(item);
+            total += producto.precio;
+        });
+
+        totalElemento.textContent = `Total: $${total.toFixed(2)}`;
+    }
+
+    function agregarAlCarrito(nombre, precio) {
+        carrito.push({ nombre, precio });
+        actualizarCarrito();
+        alert(`${nombre} agregado al carrito!`);
+    }
+
+    function vaciarCarrito() {
+        carrito = [];
+        actualizarCarrito();
+        alert('El carrito ha sido vaciado.');
+    }
+</script>
+
+</body>
+</html>
